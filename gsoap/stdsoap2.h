@@ -319,7 +319,7 @@ A commercial use license is available from Genivia, Inc., contact@genivia.com
 #  define HAVE_TM_GMTOFF
 #  define HAVE_GETTIMEOFDAY
 #  define HAVE_LOCALTIME_R
-#  define HAVE_STRERROR_R
+// #  define HAVE_STRERROR_R
 #  define HAVE_TIMEGM
 #  define HAVE_INTTYPES_H
 #  define HAVE_LOCALE_H
