@@ -79,7 +79,7 @@ SOAP_FMAC3 const char * SOAP_FMAC4 soap_xsd__dateTime2s(struct soap *soap, const
   if (soap->tmpbuf[n-1] == 'Z')
     n--;
 #ifndef WITH_NOZONE
-  (SOAP_SNPRINTF(soap->tmpbuf + n, sizeof(soap->tmpbuf) - n, 10), ".%.6dZ", a.tv_usec);
+  (SOAP_SNPRINTF(soap->tmpbuf + n, sizeof(soap->tmpbuf) - n, 10), ".%.6dZ", (int)a.tv_usec);
 #else
   (SOAP_SNPRINTF(soap->tmpbuf + n, sizeof(soap->tmpbuf) - n, 9), ".%.6d", a.tv_usec);
 #endif
