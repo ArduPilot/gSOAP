@@ -3682,8 +3682,11 @@ struct soap_block
   {
     if (!b)
       b = soap->blist;
+    #pragma GCC diagnostic push
+    #pragma GCC diagnostic ignored "-Wcast-align"
     for (T *q = (T*)soap_first_block(soap, b); q; q = (T*)soap_next_block(soap, b))
     {
+    #pragma pop
       soap_update_pointers(soap, (const char*)p, (const char*)q, sizeof(T));
       *p++ = *q;
       q->~T();

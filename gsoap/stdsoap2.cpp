@@ -3054,10 +3054,13 @@ soap_update_pointers(struct soap *soap, const char *dst, const char *src, size_t
     if (xp->ptr && (void*)xp->ptr >= start && (void*)xp->ptr < end)
     {
       DBGLOG(TEST, SOAP_MESSAGE(fdebug, "Update attachment id='%s' %p -> %p\n", xp->id ? xp->id : SOAP_STR_EOS, (void*)xp->ptr, (void*)((char*)xp->ptr + (dst-src))));
+      #pragma GCC diagnostic push
+      #pragma GCC diagnostic ignored "-Wcast-align"
       xp->ptr = (unsigned char**)((char*)xp->ptr + (dst-src));
       xp->size = (int*)((char*)xp->size + (dst-src));
       xp->type = (char**)((char*)xp->type + (dst-src));
       xp->options = (char**)((char*)xp->options + (dst-src));
+      #pragma pop
     }
   }
 #endif
