@@ -1464,7 +1464,7 @@ extern const char soap_base64o[], soap_base64i[];
 
 /* use safer snprintf if possible or guard sprintf against overrun (assumes no variadic macros) */
 # ifdef HAVE_SNPRINTF
-#  if _MSC_VER >= 1400
+#  if defined(_MSC_VER) && _MSC_VER >= 1400
 #   define SOAP_SNPRINTF(buf, len, num) void)_snprintf_s((buf), (len), _TRUNCATE
 #   define SOAP_SNPRINTF_SAFE(buf, len) void)_snprintf_s((buf), (len), _TRUNCATE
 #  else
@@ -1477,7 +1477,7 @@ extern const char soap_base64o[], soap_base64i[];
 # endif
 
 /* copy string (truncating the result, strings must not be NULL) */
-#if _MSC_VER >= 1400
+#if defined(_MSC_VER) && _MSC_VER >= 1400
 # define soap_strcpy(buf, len, src) (void)strncpy_s((buf), (len), (src), _TRUNCATE)
 #elif defined(HAVE_STRLCPY)
 # define soap_strcpy(buf, len, src) (void)strlcpy((buf), (src), (len))
@@ -1486,7 +1486,7 @@ extern const char soap_base64o[], soap_base64i[];
 #endif
 
 /* concat string (truncating the result, strings must not be NULL) */
-#if _MSC_VER >= 1400
+#if defined(_MSC_VER) && _MSC_VER >= 1400
 # define soap_strcat(buf, len, src) (void)strncat_s((buf), (len), (src), _TRUNCATE)
 #elif defined(HAVE_STRLCAT)
 # define soap_strcat(buf, len, src) (void)strlcat((buf), (src), (len))
@@ -1495,28 +1495,28 @@ SOAP_FMAC1 void SOAP_FMAC2 soap_strcat(char *buf, size_t len, const char *src);
 #endif
 
 /* copy string up to num chars (sets string to empty on overrun and returns nonzero, zero if OK) */
-#if _MSC_VER >= 1400
+#if defined(_MSC_VER) && _MSC_VER >= 1400
 # define soap_strncpy(buf, len, src, num) ((buf) == NULL || ((size_t)(len) > (size_t)(num) ? strncpy_s((buf), (len), (src), (num)) : ((buf)[0] = '\0', 1)))
 #else
 # define soap_strncpy(buf, len, src, num) ((buf) == NULL || ((size_t)(len) > (size_t)(num) ? (strncpy((buf), (src), (num)), (buf)[(size_t)(num)] = '\0') : ((buf)[0] = '\0', 1)))
 #endif
 
 /* concat string up to n chars (leaves destination intact on overrun and returns nonzero, zero if OK) */
-#if _MSC_VER >= 1400
+#if defined(_MSC_VER) && _MSC_VER >= 1400
 # define soap_strncat(buf, len, src, num) ((buf) == NULL || ((size_t)(len) > strlen((buf)) + (size_t)(num) ? strncat_s((buf), (len), (src), (num)) : 1))
 #else
 SOAP_FMAC1 int SOAP_FMAC2 soap_strncat(char *buf, size_t len, const char *src, size_t num);
 #endif
 
 /* copy memory (returns SOAP_ERANGE on overrun, zero if OK, pointers must not be NULL) */
-#if _MSC_VER >= 1400
+#if defined(_MSC_VER) && _MSC_VER >= 1400
 # define soap_memcpy(buf, len, src, num) ((size_t)(len) >= (size_t)(num) ? memcpy_s((buf), (len), (src), (num)) : SOAP_ERANGE)
 #else
 # define soap_memcpy(buf, len, src, num) ((size_t)(len) >= (size_t)(num) ? !memcpy((buf), (src), (num)) : SOAP_ERANGE)
 #endif
 
 /* move memory (returns SOAP_ERANGE on overrun, zero if OK, pointers must not be NULL) */
-#if _MSC_VER >= 1400
+#if defined(_MSC_VER) && _MSC_VER >= 1400
 # define soap_memmove(buf, len, src, num) ((size_t)(len) >= (size_t)(num) ? memmove_s((buf), (len), (src), (num)) : SOAP_ERANGE)
 #else
 # define soap_memmove(buf, len, src, num) ((size_t)(len) >= (size_t)(num) ? !memmove((buf), (src), (num)) : SOAP_ERANGE)

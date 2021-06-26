@@ -13030,7 +13030,7 @@ soap_element_begin_out(struct soap *soap, const char *tag, int id, const char *t
 
 /******************************************************************************/
 
-#if _MSC_VER < 1400 && !defined(HAVE_STRLCAT)
+#if (!defined(_MSC_VER) || _MSC_VER < 1400) && !defined(HAVE_STRLCAT)
 /* concat string (truncating the result, strings must not be NULL) */
 SOAP_FMAC1
 void
@@ -13051,7 +13051,7 @@ soap_strcat(char *t, size_t n, const char *s)
 
 /******************************************************************************/
 
-#if _MSC_VER < 1400
+#if !defined(_MSC_VER) || _MSC_VER < 1400
 /* concat string up to m chars (leaves destination intact on overrun and returns nonzero, zero if OK) */
 SOAP_FMAC1
 int
