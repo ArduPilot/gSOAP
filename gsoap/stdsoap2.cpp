@@ -3060,7 +3060,7 @@ soap_update_pointers(struct soap *soap, const char *dst, const char *src, size_t
       xp->size = (int*)((char*)xp->size + (dst-src));
       xp->type = (char**)((char*)xp->type + (dst-src));
       xp->options = (char**)((char*)xp->options + (dst-src));
-      #pragma pop
+      #pragma GCC diagnostic pop
     }
   }
 #endif
